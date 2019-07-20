@@ -1,9 +1,12 @@
 - hosts: all
   become: yes
-  roles:
-     - { role: anxs.postgresql}
-     - { role: dj-wasabi.zabbix-server }
-     - { role: dj-wasabi.zabbix-web  }
-     - { role: dj-wasabi.zabbix-agent }
+  gather_facts: yes
+  become_method: sudo
+  tasks:
+  - name: test which user I am
+    shell: whoami
+    register: hello
+  - debug: msg="{{ hello.stdout }}"
+
 
 
